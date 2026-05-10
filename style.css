@@ -1,0 +1,207 @@
+:root {
+    --primary-color: #ff4081;
+    --secondary-color: #4caf50;
+    --accent-color: #ffeb3b;
+    --bg-color: #fff9f9;
+    --text-color: #3e2723;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    flex-wrap: wrap;
+}
+
+/* Panel Izquierdo: El Jardín */
+.garden-panel {
+    flex: 1;
+    min-width: 300px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+}
+
+#tree-svg {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+}
+
+.instruction {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Panel Derecho: Mensaje */
+.message-panel {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: white;
+}
+
+.content-wrapper {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.poem {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 40px;
+    color: #5d4037;
+}
+
+.poem p {
+    margin-bottom: 10px;
+}
+
+/* Contador */
+.counter-section {
+    background: #fff0f6;
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px dashed var(--primary-color);
+}
+
+.counter-section h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #ad1457;
+}
+
+.counter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.counter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.counter-item span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.counter-item label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #880e4f;
+}
+
+/* Flores animadas */
+.flower {
+    transform-origin: center;
+    animation: bloom 0.5s ease-out forwards;
+}
+
+@keyframes bloom {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Secret Section */
+.secret-section {
+    margin-top: 30px;
+}
+
+#secret-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 64, 129, 0.3);
+    transition: all 0.3s ease;
+}
+
+#secret-btn:hover {
+    transform: scale(1.05);
+    background-color: #f50057;
+}
+
+#secret-message {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    font-style: italic;
+    color: #4e342e;
+    line-height: 1.6;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .garden-panel {
+        min-height: 50vh;
+    }
+    .title {
+        font-size: 2.2rem;
+    }
+}
