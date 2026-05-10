@@ -1,7 +1,12 @@
 // Configuración inicial
 const startDate = new Date('2005-08-08T00:00:00');
 const svg = document.getElementById('tree-svg');
-const colors = ['#ff4081', '#f06292', '#ba68c8', '#ffd54f', '#ffb74d'];
+const colors = [
+    '#ff4081', '#f06292', '#ba68c8', '#ffd54f', '#ffb74d', 
+    '#ff5252', '#ff4081', '#e040fb', '#7c4dff', '#536dfe', 
+    '#448aff', '#40c4ff', '#18ffff', '#64ffda', '#69f0ae', 
+    '#b2ff59', '#eeff41', '#ffff00', '#ffd740', '#ffab40'
+];
 
 // --- 1. Lógica del Contador ---
 function updateCounter() {
@@ -12,7 +17,6 @@ function updateCounter() {
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
     
-    // Cálculo aproximado de años, meses y días
     let years = now.getFullYear() - startDate.getFullYear();
     let months = now.getMonth() - startDate.getMonth();
     let days = now.getDate() - startDate.getDate();
@@ -38,7 +42,7 @@ function updateCounter() {
 setInterval(updateCounter, 1000);
 updateCounter();
 
-// --- 2. Lógica del Árbol Interactivo ---
+// --- 2. Lógica del Árbol ---
 function createFlower(x, y) {
     const flower = document.createElementNS("http://www.w3.org/2000/svg", "g");
     flower.setAttribute("class", "flower");
@@ -46,7 +50,6 @@ function createFlower(x, y) {
     const color = colors[Math.floor(Math.random() * colors.length)];
     const size = 5 + Math.random() * 8;
     
-    // Pétalos
     for (let i = 0; i < 5; i++) {
         const petal = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
         const angle = (i * 72) * (Math.PI / 180);
@@ -62,7 +65,6 @@ function createFlower(x, y) {
         flower.appendChild(petal);
     }
     
-    // Centro de la flor
     const center = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     center.setAttribute("cx", x);
     center.setAttribute("cy", y);
@@ -72,21 +74,16 @@ function createFlower(x, y) {
     
     svg.appendChild(flower);
 
-    // Eliminar flores después de un tiempo para mantener el rendimiento (opcional)
-    // O dejarlas para que el árbol se llene de flores.
-    if (svg.children.length > 150) {
+    if (svg.querySelectorAll('.flower').length > 200) {
         svg.removeChild(svg.querySelector('.flower'));
     }
 }
 
-// Interacción
 svg.addEventListener('click', (e) => {
     const pt = svg.createSVGPoint();
     pt.x = e.clientX;
     pt.y = e.clientY;
     const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
-    
-    // Crear ráfaga de flores
     for(let i = 0; i < 3; i++) {
         setTimeout(() => {
             createFlower(
@@ -97,23 +94,34 @@ svg.addEventListener('click', (e) => {
     }
 });
 
-// Flores iniciales aleatorias en las "ramas"
 function initialBlooms() {
     const branchPoints = [
         {x: 150, y: 200}, {x: 250, y: 250}, {x: 120, y: 280},
-        {x: 300, y: 350}, {x: 100, y: 120}, {x: 220, y: 100}
+        {x: 300, y: 350}, {x: 100, y: 120}, {x: 220, y: 100},
+        {x: 180, y: 150}, {x: 210, y: 300}, {x: 140, y: 400},
+        {x: 160, y: 100}, {x: 240, y: 180}, {x: 130, y: 350}
     ];
     
-    branchPoints.forEach(pt => {
-        for(let i = 0; i < 2; i++) {
-            createFlower(pt.x + (Math.random()-0.5)*20, pt.y + (Math.random()-0.5)*20);
+    let bloomCount = 0;
+    const maxFlowers = 150;
+
+    function autoBloom() {
+        if (bloomCount < maxFlowers) {
+            const randomBranch = branchPoints[Math.floor(Math.random() * branchPoints.length)];
+            createFlower(
+                randomBranch.x + (Math.random() - 0.5) * 80, 
+                randomBranch.y + (Math.random() - 0.5) * 80
+            );
+            bloomCount++;
+            setTimeout(autoBloom, 50 + Math.random() * 100);
         }
-    });
+    }
+    autoBloom();
 }
 
 initialBlooms();
 
-// --- 3. Lógica de Música y Mensaje Secreto ---
+// --- 3. Música y Mensaje ---
 const music = document.getElementById('bg-music');
 const secretBtn = document.getElementById('secret-btn');
 const secretMsg = document.getElementById('secret-message');
@@ -121,21 +129,19 @@ let musicStarted = false;
 
 function startMusic() {
     if (!musicStarted) {
-        music.play().catch(e => console.log("Autoplay blocked, waiting for interaction"));
+        music.play().catch(e => console.log("Autoplay blocked"));
         music.volume = 0.5;
         musicStarted = true;
     }
 }
 
-// Iniciar música al primer clic en cualquier parte
 document.addEventListener('click', startMusic, { once: true });
 
-// Revelar mensaje secreto
 secretBtn.addEventListener('click', () => {
     secretMsg.classList.toggle('hidden');
     if (!secretMsg.classList.contains('hidden')) {
         secretBtn.innerText = "Cerrar mensaje 💖";
-        startMusic(); // Asegurar que la música suene al abrir el mensaje
+        startMusic();
     } else {
         secretBtn.innerText = "Revelar mensaje secreto 💌";
     }
