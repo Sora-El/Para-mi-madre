@@ -9,16 +9,38 @@
 </head>
 <body>
     <div class="container">
-        <!-- Panel Izquierdo: El Árbol Interactivo rapido-->
+        <!-- Panel Izquierdo: El Árbol Interactivo -->
         <div class="garden-panel">
             <svg id="tree-svg" viewBox="0 0 400 600" preserveAspectRatio="xMidYMax meet">
-                <!-- Base del árbol (Tronco) -->
-                <path d="M180,600 Q200,550 200,450 Q200,300 150,200" stroke="#5d4037" stroke-width="20" fill="none" stroke-linecap="round"/>
-                <path d="M200,450 Q200,350 250,250" stroke="#5d4037" stroke-width="15" fill="none" stroke-linecap="round"/>
-                <path d="M200,350 Q180,300 120,280" stroke="#5d4037" stroke-width="12" fill="none" stroke-linecap="round"/>
-                <path d="M220,400 Q250,380 300,350" stroke="#5d4037" stroke-width="10" fill="none" stroke-linecap="round"/>
-                <path d="M150,200 Q140,150 100,120" stroke="#5d4037" stroke-width="8" fill="none" stroke-linecap="round"/>
-                <path d="M150,200 Q170,140 220,100" stroke="#5d4037" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <!-- Sombra del suelo suave -->
+                <ellipse cx="200" cy="580" rx="120" ry="15" fill="rgba(0,0,0,0.05)" />
+                
+                <!-- Tronco con degradado y forma orgánica -->
+                <defs>
+                    <linearGradient id="trunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#3e2723;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#5d4037;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#3e2723;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Tronco Principal -->
+                <path d="M180,600 C180,500 190,450 200,400 S210,250 190,150" stroke="url(#trunkGrad)" stroke-width="24" fill="none" stroke-linecap="round"/>
+                
+                <!-- Ramas Principales (Distribución más equilibrada) -->
+                <path d="M200,420 C240,380 300,380 340,320" stroke="#5d4037" stroke-width="14" fill="none" stroke-linecap="round"/>
+                <path d="M200,420 C160,380 100,380 60,320" stroke="#5d4037" stroke-width="14" fill="none" stroke-linecap="round"/>
+                
+                <path d="M195,300 C150,250 120,250 80,180" stroke="#5d4037" stroke-width="10" fill="none" stroke-linecap="round"/>
+                <path d="M205,300 C250,250 280,250 320,180" stroke="#5d4037" stroke-width="10" fill="none" stroke-linecap="round"/>
+                
+                <path d="M190,180 C180,120 200,100 200,40" stroke="#5d4037" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+                <!-- Ramas secundarias finas -->
+                <path d="M300,350 C330,350 350,330 370,330" stroke="#5d4037" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M100,350 C70,350 50,330 30,330" stroke="#5d4037" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M100,210 C80,180 60,180 40,150" stroke="#5d4037" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M300,210 C320,180 340,180 360,150" stroke="#5d4037" stroke-width="4" fill="none" stroke-linecap="round"/>
             </svg>
             <div class="instruction">¡Mira cómo florece nuestro amor! 🌸</div>
         </div>

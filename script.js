@@ -48,7 +48,7 @@ function createFlower(x, y) {
     flower.setAttribute("class", "flower");
     
     const color = colors[Math.floor(Math.random() * colors.length)];
-    const size = 5 + Math.random() * 8;
+    const size = 8 + Math.random() * 10; // TAMAÑO EQUILIBRADO
     
     for (let i = 0; i < 5; i++) {
         const petal = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
@@ -58,8 +58,8 @@ function createFlower(x, y) {
         
         petal.setAttribute("cx", x + px);
         petal.setAttribute("cy", y + py);
-        petal.setAttribute("rx", size / 2);
-        petal.setAttribute("ry", size / 4);
+        petal.setAttribute("rx", size / 1.8);
+        petal.setAttribute("ry", size / 3.5);
         petal.setAttribute("fill", color);
         petal.setAttribute("transform", `rotate(${i * 72}, ${x + px}, ${y + py})`);
         flower.appendChild(petal);
@@ -74,7 +74,7 @@ function createFlower(x, y) {
     
     svg.appendChild(flower);
 
-    if (svg.querySelectorAll('.flower').length > 200) {
+    if (svg.querySelectorAll('.flower').length > 400) {
         svg.removeChild(svg.querySelector('.flower'));
     }
 }
@@ -95,25 +95,26 @@ svg.addEventListener('click', (e) => {
 });
 
 function initialBlooms() {
+    // Puntos de las ramas para un crecimiento más natural
     const branchPoints = [
-        {x: 150, y: 200}, {x: 250, y: 250}, {x: 120, y: 280},
-        {x: 300, y: 350}, {x: 100, y: 120}, {x: 220, y: 100},
-        {x: 180, y: 150}, {x: 210, y: 300}, {x: 140, y: 400},
-        {x: 160, y: 100}, {x: 240, y: 180}, {x: 130, y: 350}
+        {x: 340, y: 320}, {x: 60, y: 320}, {x: 80, y: 180},
+        {x: 320, y: 180}, {x: 200, y: 40}, {x: 370, y: 330},
+        {x: 30, y: 330}, {x: 40, y: 150}, {x: 360, y: 150},
+        {x: 200, y: 150}, {x: 220, y: 250}, {x: 180, y: 250}
     ];
     
     let bloomCount = 0;
-    const maxFlowers = 150;
+    const maxFlowers = 180; // Cantidad justa para que no tape todo
 
     function autoBloom() {
         if (bloomCount < maxFlowers) {
             const randomBranch = branchPoints[Math.floor(Math.random() * branchPoints.length)];
             createFlower(
-                randomBranch.x + (Math.random() - 0.5) * 80, 
-                randomBranch.y + (Math.random() - 0.5) * 80
+                randomBranch.x + (Math.random() - 0.5) * 100, 
+                randomBranch.y + (Math.random() - 0.5) * 100
             );
             bloomCount++;
-            setTimeout(autoBloom, 50 + Math.random() * 100);
+            setTimeout(autoBloom, 40 + Math.random() * 100);
         }
     }
     autoBloom();
